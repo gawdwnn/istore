@@ -9,7 +9,8 @@ const login = expressAsyncHandler(async (req, res) => {
   const {email, password} = req.body;
 
   if (!email || !password) {
-    throw new Error('Please Provide email or password');
+    res.status(400);
+    throw new Error('Please provide email or password');
   }
 
   const user = await User.findOne({email});
