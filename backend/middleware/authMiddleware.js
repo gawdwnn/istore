@@ -15,6 +15,10 @@ const protect = expressAsyncHandler(async (req, res, next) => {
   }
 
   const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  if (!decoded) {
+    res.status(401);
+    throw new Error('Not authorized, token failed');
+  }
 
   const currentUser = await User.findById(decoded.id).select('-password');
 
