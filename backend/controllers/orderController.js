@@ -70,4 +70,16 @@ const updateOrderStatus = asyncHandler(async (req, res) => {
   res.json(updatedOrder);
 });
 
-export {addOrderItems, getOrder, updateOrderStatus};
+// @desc    Get logged in user orders
+// @route   GET /api/orders/myorders
+// @access  Private
+const getMyOrders = asyncHandler(async (req, res) => {
+  const orders = await Order.find({user: req.user._id});
+  if (!orders || !orders.length) {
+    res.status(404);
+    throw new Error('Youve got no orders');
+  }
+  res.json(orders);
+});
+
+export {addOrderItems, getOrder, updateOrderStatus, getMyOrders};
