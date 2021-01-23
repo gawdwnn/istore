@@ -2,7 +2,16 @@ import expressAsyncHandler from 'express-async-handler';
 import Product from '../models/productModel.js';
 
 const getProducts = expressAsyncHandler(async (req, res) => {
-  const products = await Product.find({});
+  const keyword = req.query.keyword
+    ? {
+        name: {
+          $regex: req.query.keyword,
+          $options: 'i',
+        },
+      }
+    : {};
+  console.log({...keyword});
+  const products = await Product.find({...keyword});
   if (!products || !products.length) {
     res.status(404);
     throw new Error('Products not available at this time');

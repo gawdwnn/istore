@@ -40,8 +40,9 @@ function App() {
           <Route exact path="/admin/user/:id/edit" component={UserEditScreen} />
           {/* <Route exact path="/admin/productlist" component={ProductListScreen} /> */}
           <Route exact path="/admin/productlist/:pageNumber?" component={ProductListScreen} />
-          <Route path="/admin/product/:id/edit" component={ProductEditScreen} />
-          <Route path="/admin/orderlist" component={OrderListScreen} />
+          <Route exact path="/admin/product/:id/edit" component={ProductEditScreen} />
+          <Route exact path="/admin/orderlist" component={OrderListScreen} />
+          <Route exact path="/search/:keyword" component={HomeScreen} />
         </Container>
       </main>
       <Footer />
