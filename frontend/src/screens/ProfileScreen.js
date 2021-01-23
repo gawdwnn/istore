@@ -58,14 +58,11 @@ const ProfileScreen = ({location, history}) => {
       <Col md={3}>
         <h2>User Profile</h2>
         {message && <Message variant="danger">{message}</Message>}
-        {}
         {success && <Message variant="success">Profile Updated</Message>}
-        {loading ? (
-          <Loader />
-        ) : error ? (
-          <Message variant="danger">{error}</Message>
-        ) : (
-          <Form onSubmit={submitHandler}>
+        {error && <Message variant="danger">{error}</Message>}
+
+        <Form onSubmit={submitHandler}>
+          <fieldset disabled={loading} aria-busy={loading}>
             <Form.Group controlId="name">
               <Form.Label>Name</Form.Label>
               <Form.Control
@@ -106,11 +103,11 @@ const ProfileScreen = ({location, history}) => {
               />
             </Form.Group>
 
-            <Button type="submit" variant="primary">
+            <Button type="submit" variant="primary" disabled={loading}>
               Update
             </Button>
-          </Form>
-        )}
+          </fieldset>
+        </Form>
       </Col>
       <Col md={9}>
         <h2>My Orders</h2>
