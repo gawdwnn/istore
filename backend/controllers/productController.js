@@ -19,6 +19,11 @@ const getProducts = expressAsyncHandler(async (req, res) => {
     .skip(pageSize * (page - 1));
   const count = await Product.countDocuments({...keyword});
 
+  if (!products || !products.length) {
+    res.status(404);
+    throw new Error('Products not available at this time');
+  }
+
   res.json({products, page, pages: Math.ceil(count / pageSize)});
 });
 
